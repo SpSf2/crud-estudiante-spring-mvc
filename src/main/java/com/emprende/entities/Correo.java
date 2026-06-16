@@ -26,6 +26,6 @@ public class Correo {
     private String email;
 
      @ManyToOne(fetch = FetchType.LAZY)
-    private Estudiante estudiantes;
+    private Estudiante estudiante;
 
 }

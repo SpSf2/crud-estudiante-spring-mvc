@@ -45,10 +45,10 @@ public class Estudiante {
     @ManyToOne(fetch = FetchType.LAZY)
     private Facultad facultad;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiantes")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
     private Set<Telefono> telefonos;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiantes")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
     private Set<Correo> correos;
 
     

@@ -28,7 +28,7 @@ public class Facultad {
     private int id;
     private String nombre;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facultades")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facultad")
     private List<Estudiante> estudiantes;
 
 }
