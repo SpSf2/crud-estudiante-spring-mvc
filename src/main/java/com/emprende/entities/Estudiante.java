@@ -1,5 +1,6 @@
 package com.emprende.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -28,7 +29,10 @@ import lombok.ToString;
 @ToString
 @Entity
 
-public class Estudiante {
+public class Estudiante implements Serializable{
+
+    private static final long SerialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

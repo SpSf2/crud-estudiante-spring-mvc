@@ -1,5 +1,6 @@
 package com.emprende.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -21,7 +22,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-public class Facultad {
+public class Facultad implements Serializable{
+
+    private static final long SerialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

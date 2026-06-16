@@ -1,5 +1,7 @@
 package com.emprende.entities;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-public class Telefono {
+public class Telefono implements Serializable{
+
+    private static final long SerialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
