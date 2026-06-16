@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
 import com.emprende.entities.Facultad;
 import com.emprende.entities.Facultad.FacultadBuilder;
@@ -72,6 +73,8 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.facultad(facultad1)
 					.telefonos(Set.of(Telefono.builder().numero("123456789").build(),
 				    Telefono.builder().numero("987654321").build()))
+					.correos(Set.of(Correo.builder().email("jjj@jjj.com").build(),
+					Correo.builder().email("kkk@jjj.com").build()))	
 					.build();
 
 					/*Antes de persistir el estudiante, para que en las tablas de correos y telefonos
