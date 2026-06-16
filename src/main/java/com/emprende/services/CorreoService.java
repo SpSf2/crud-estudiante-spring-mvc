@@ -16,12 +16,12 @@ public interface CorreoService {
     // Metodo para obtener todo los Correos:
      List<Correo> getAllCorreos();
 
-     boolean existsByCorreo(Correo correo);
+     boolean existsByEstudiante(Estudiante estudiante);
 
     // Metodo para eliminar un Correo:
     void deleteByEstudiante(Estudiante estudiante);
 
     //Metodo para obtener todo los Correos de un Estudiante
-    List<Correo> getCorreosByEstudiante(Estudiante estudiante);
+    List<Correo> findByEstudiante(Estudiante estudiante);
 
 }

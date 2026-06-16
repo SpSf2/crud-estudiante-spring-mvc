@@ -10,7 +10,7 @@ import java.util.List;
 public interface CorreoDao extends JpaRepository<Correo, Integer>{
 
     //Este Metodo muestra si un Estudiante tiene Correo registrado:
-    boolean existsByCorreo(Correo correo);
+    boolean existsByEstudiante(Estudiante estudiante);
 
     //Este Metodo elimina los Correos de un Estudiante:
     void deleteByEstudiante(Estudiante estudiante);
