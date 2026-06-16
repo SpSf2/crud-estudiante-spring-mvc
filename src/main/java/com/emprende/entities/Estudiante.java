@@ -17,6 +17,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,11 +26,12 @@ import lombok.ToString;
 
 @Table(name="estudiantes")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @Entity
-
+@Builder
 public class Estudiante implements Serializable{
 
     private static final long SerialVersionUID = 1L;
