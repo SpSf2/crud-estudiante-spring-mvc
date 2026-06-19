@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @SpringBootApplication
 @RequiredArgsConstructor
 public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
-
+	//Servicios inyectados
 	private final EstudianteService estudianteService;
 	private final FacultadService facultadService;
 	
@@ -78,7 +78,7 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.build();
 
 					/*Antes de persistir el estudiante, para que en las tablas de correos y telefonos
-					no salga "el campo estudiante_id "null", hay que estbalecer la relación entre el 
+					no salga "el campo estudiante_id "null", hay que establecer la relación entre el 
 					estudiante y sus correos y telefonos:     */
 
 					estudiante1.getTelefonos().forEach(telefono -> telefono.setEstudiante(estudiante1));
@@ -87,11 +87,6 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					estudianteService.saveEstudiante(estudiante1);
 
 			
-
-
-
-
-
 
 
 	}

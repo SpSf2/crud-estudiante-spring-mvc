@@ -2,6 +2,7 @@ package com.emprende.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.emprende.models.Genero;
@@ -53,10 +54,10 @@ public class Estudiante implements Serializable{
     private Facultad facultad;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
-    private Set<Telefono> telefonos;
+    private Set<Telefono> telefonos = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
-    private Set<Correo> correos;
+    private Set<Correo> correos = new HashSet<>();
 
     
 }
