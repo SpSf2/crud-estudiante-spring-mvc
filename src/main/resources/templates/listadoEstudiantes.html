@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Estudiantes</title>
+</head>
+
+<body>
+    <h1>Listado de Estudiantes</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>Genero</th>
+                <th>Fecha de Matriculacion</th>
+                <th>direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr th:each="estudiante : ${estudiante}">
+            <td th:text="${estudiante.nombre}"></td>
+            <td th:text="${estudiante.primerApellido}"></td>
+            <td th:text="${estudiante.segundoApellido}"></td>
+            <td th:text="${estudiante.genero}"></td>
+            <td th:text="${estudiante.fechaMatriculacion}"></td>
+            <td th:text="${estudiante.direccion}"></td>
+          </tr>
+        </tbody>
+    </table>
+</body>
+</html>

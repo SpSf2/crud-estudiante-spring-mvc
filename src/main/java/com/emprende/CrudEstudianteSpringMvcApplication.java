@@ -68,7 +68,7 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.primerApellido("López")
 					.segundoApellido("García")
 					.genero(Genero.HOMBRE)
-					.fechaMatriculación(LocalDate.of(15, Month.APRIL, 2))
+					.fechaMatriculación(LocalDate.of(2015, Month.APRIL, 2))
 					.direccion("Calle 3 numero 2 piso 4")
 					.facultad(facultad1)
 					.telefonos(Set.of(Telefono.builder().numero("123456789").build(),
@@ -86,7 +86,7 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					
 					estudianteService.saveEstudiante(estudiante1);
 
-			
+						
 
 
 	}
