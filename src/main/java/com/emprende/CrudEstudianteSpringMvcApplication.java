@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.Trigger;
 
 import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
@@ -71,8 +72,8 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.fechaMatriculación(LocalDate.of(2015, Month.APRIL, 2))
 					.direccion("Calle 3 numero 2 piso 4")
 					.facultad(facultad1)
-					.telefonos(Set.of(Telefono.builder().numero("123456789").build(),
-				    Telefono.builder().numero("987654321").build()))
+					.telefonos(Set.of(Telefono.builder().numero("+34123456789").build(),
+				    Telefono.builder().numero("+34987654321").build()))
 					.correos(Set.of(Correo.builder().email("jjj@jjj.com").build(),
 					Correo.builder().email("kkk@jjj.com").build()))	
 					.build();
@@ -86,9 +87,64 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					
 					estudianteService.saveEstudiante(estudiante1);
 
-						
+			Estudiante estudiante2 = Estudiante.builder()
+					.nombre("Juan")
+					.primerApellido("Pérez")
+					.segundoApellido("Pérez")
+					.genero(Genero.HOMBRE)
+					.fechaMatriculación(LocalDate.of(2016, Month.MARCH, 30))
+					.direccion("Calle 6 numero 4 piso 5")
+					.facultad(facultad2)
+					.telefonos(Set.of(Telefono.builder().numero("+34963963963").build(),
+				    Telefono.builder().numero("+34369369369").build()))
+					.correos(Set.of(Correo.builder().email("nauj@hotmail.com").build(),
+					Correo.builder().email("naujkkk@gmail.com").build()))	
+					.build();
 
+					estudiante2.getTelefonos().forEach(telefono -> telefono.setEstudiante(estudiante2));
+					estudiante2.getCorreos().forEach(correo -> correo.setEstudiante(estudiante2));
+					
+					estudianteService.saveEstudiante(estudiante2);
 
+			Estudiante estudiante3 = Estudiante.builder()
+					.nombre("Pedro")
+					.primerApellido("Suárez")
+					.segundoApellido("Roldan")
+					.genero(Genero.HOMBRE)
+					.fechaMatriculación(LocalDate.of(2016, Month.APRIL, 1))
+					.direccion("Calle 1 numero 1 piso 1")
+					.facultad(facultad3)
+					.telefonos(Set.of(Telefono.builder().numero("+34852852852").build(),
+				    Telefono.builder().numero("+34258258258").build()))
+					.correos(Set.of(Correo.builder().email("ped@hotmail.com").build(),
+					Correo.builder().email("ped@gmail.com").build()))	
+					.build();
+
+					estudiante3.getTelefonos().forEach(telefono -> telefono.setEstudiante(estudiante3));
+					estudiante3.getCorreos().forEach(correo -> correo.setEstudiante(estudiante3));
+					
+					estudianteService.saveEstudiante(estudiante3);
+
+			Estudiante estudiante4 = Estudiante.builder()
+					.nombre("María")
+					.primerApellido("Contreras")
+					.segundoApellido("Parra")
+					.genero(Genero.HOMBRE)
+					.fechaMatriculación(LocalDate.of(2018, Month.MARCH, 14))
+					.direccion("Calle 6 numero 4 piso 5")
+					.facultad(facultad4)
+					.telefonos(Set.of(Telefono.builder().numero("+34741741741").build(),
+				    Telefono.builder().numero("+34147147147").build()))
+					.correos(Set.of(Correo.builder().email("mar@hotmail.com").build(),
+					Correo.builder().email("mar@gmail.com").build()))	
+					.build();
+
+					estudiante4.getTelefonos().forEach(telefono -> telefono.setEstudiante(estudiante4));
+					estudiante4.getCorreos().forEach(correo -> correo.setEstudiante(estudiante4));
+					
+					estudianteService.saveEstudiante(estudiante4);
+
+		
 	}
 
 }
