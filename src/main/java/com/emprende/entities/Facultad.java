@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"estudiantes"})
 @Entity
 @Builder
 public class Facultad implements Serializable{

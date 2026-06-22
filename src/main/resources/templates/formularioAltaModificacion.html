@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Alta/Modificacion</title>
+</head>
+
+<body>
+    <h1>Formulario Alta/Modificacion</h1>
+    
+    <fieldset>
+        <legend>Formulario de Alta o Modificacion</legend>
+        <form th:action="@{/estudiantes/persistir}" method="post" th:object="${estudiante}">
+          <input type="hidden" th:field="*{id}">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required th:field="*{nombre}">
+            <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color:red;"></p>
+        </div>
+        <div>
+            <label for="primerApellido">Primer Apellido:</label>
+            <input type="text" id="primerApellido" name="primerApellido" required="required" th:field="*{primerApellido}">
+        </div>
+        <div>
+            <label for="segundoApellido">Segundo Apellido:</label>
+            <input type="text" id="segundoApellido" name="segundoApellido" th:field="*{segundoApellido}">
+        </div>
+        <div>
+            <fieldset>
+                <legend>Genero</legend>
+                <label for="hombre">Hombre</label>
+                <input type="radio" id="hombre" name="genero" value="HOMBRE" th:field="*{genero}">
+                <label for="mujer">Mujer</label>
+                <input type="radio" id="mujer" name="genero" value="MUJER" th:field="*{genero}">
+                <label for="otro">Otro</label>
+                <input type="radio" id="otro" name="genero" value="OTRO" th:field="*{genero}">
+            </fieldset>
+        </div>
+          <div> 
+            <label for="fechaMatriculacion">Fecha de Matriculacion:</label>
+            <input type="date" id="fechaMatriculacion" th:field="*{fechaMatriculacion}">
+          </div>
+          
+          <div>
+            <label for="direccion">Direccion:</label>
+            <input type="text" id="direccion" name="direccion" th:field="*{direccion}">
+          </div>
+          <div>
+            <label for="numerosTelefono">Numeros de Telefono:</label>
+            <input type="text" id="numerosTelefono" name="numerosTelefono" placeholder="Uno o varios separados por ;">    
+          </div>
+          <div>
+            <label for="dircorreos">Correos:</label>
+            <input type="text" id="dircorreos" name="dircorreos" placeholder="Uno o varios separados por ;">    
+          </div>
+          <div>
+            <label for="facultades">Facultad:</label>
+            <select id="facultades" th:field="*{facultad}">
+              <option value=""></option>
+              <option th:each="facultad : ${facultades}"
+                      th:value="${facultad.id}"
+                      th:text="${facultad.nombre}">
+              </option>
+            </select>
+          </div> 
+          <div>
+            <button type="submit">Enviar</button>
+          </div>
+      </form>
+    </fieldset>
+    
+</body>
+</html>

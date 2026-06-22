@@ -69,7 +69,7 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.primerApellido("López")
 					.segundoApellido("García")
 					.genero(Genero.HOMBRE)
-					.fechaMatriculación(LocalDate.of(2015, Month.APRIL, 2))
+					.fechaMatriculacion(LocalDate.of(2015, Month.APRIL, 2))
 					.direccion("Calle 3 numero 2 piso 4")
 					.facultad(facultad1)
 					.telefonos(Set.of(Telefono.builder().numero("+34123456789").build(),
@@ -92,7 +92,7 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.primerApellido("Pérez")
 					.segundoApellido("Pérez")
 					.genero(Genero.HOMBRE)
-					.fechaMatriculación(LocalDate.of(2016, Month.MARCH, 30))
+					.fechaMatriculacion(LocalDate.of(2016, Month.MARCH, 30))
 					.direccion("Calle 6 numero 4 piso 5")
 					.facultad(facultad2)
 					.telefonos(Set.of(Telefono.builder().numero("+34963963963").build(),
@@ -111,7 +111,7 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.primerApellido("Suárez")
 					.segundoApellido("Roldan")
 					.genero(Genero.HOMBRE)
-					.fechaMatriculación(LocalDate.of(2016, Month.APRIL, 1))
+					.fechaMatriculacion(LocalDate.of(2016, Month.APRIL, 1))
 					.direccion("Calle 1 numero 1 piso 1")
 					.facultad(facultad3)
 					.telefonos(Set.of(Telefono.builder().numero("+34852852852").build(),
@@ -129,8 +129,8 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.nombre("María")
 					.primerApellido("Contreras")
 					.segundoApellido("Parra")
-					.genero(Genero.HOMBRE)
-					.fechaMatriculación(LocalDate.of(2018, Month.MARCH, 14))
+					.genero(Genero.MUJER)
+					.fechaMatriculacion(LocalDate.of(2018, Month.MARCH, 14))
 					.direccion("Calle 6 numero 4 piso 5")
 					.facultad(facultad4)
 					.telefonos(Set.of(Telefono.builder().numero("+34741741741").build(),

@@ -2,6 +2,7 @@ package com.emprende.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class Correo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name="correo", nullable=false, unique=true)
     private String email;
 
      @ManyToOne(fetch = FetchType.LAZY)

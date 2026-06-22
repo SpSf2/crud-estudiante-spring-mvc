@@ -30,7 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"telefonos", "correos"})
 @Entity
 @Builder
 public class Estudiante implements Serializable{
@@ -47,15 +47,17 @@ public class Estudiante implements Serializable{
     
     @Enumerated(EnumType.STRING)
     private Genero genero;
-    private LocalDate fechaMatriculación;
+    private LocalDate fechaMatriculacion;
     private String direccion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Facultad facultad;
 
+    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
     private Set<Telefono> telefonos = new HashSet<>();
 
+    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
     private Set<Correo> correos = new HashSet<>();
 
