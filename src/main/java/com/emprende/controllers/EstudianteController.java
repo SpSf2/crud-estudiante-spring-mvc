@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.emprende.entities.Telefono;
 import com.emprende.services.EstudianteService;
 import com.emprende.services.FacultadService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -66,9 +68,18 @@ public class EstudianteController {
     /*Metodo para recibir los datos del formulario de Alta de Estudiante*/
 
     @PostMapping("/persistir")
-    public String procesarFormuarioaltaModificacion(@ModelAttribute Estudiante estudiante,
+    public String procesarFormuarioaltaModificacion(@Valid
+        @ModelAttribute Estudiante estudiante,
+        BindingResult result,
         @RequestParam String numerosTelefono,
-        @RequestParam String dircorreos) {
+        @RequestParam String dircorreos,
+        Model model) {
+
+            if (result.hasErrors()) {
+
+                model.addAttribute("facultades", facultadService.getAllFacultades());
+                return "formularioAltaModificacion";
+            }
 
         /*esto es para recibir otro parametro y el tipo String es para convertir la variable a String, 
         si la variable que se coloca es igual a la variable que almacena el objeto, mejor */

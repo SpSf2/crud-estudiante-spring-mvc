@@ -18,6 +18,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,6 +44,10 @@ public class Estudiante implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull(message = "El nombre no puede estar vacío ")
+    @NotBlank(message = "El nombre no puede solo contener espacios en blanco")
+    @Size(min = 4, max = 30, message = "El nombre tiene que estar entre 4 y 30 cararteres")
     private String nombre;
     private String primerApellido;
     private String segundoApellido ;
