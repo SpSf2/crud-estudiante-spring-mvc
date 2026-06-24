@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,12 +49,18 @@ public class Estudiante implements Serializable{
     @NotNull(message = "El nombre no puede estar vacío ")
     @NotBlank(message = "El nombre no puede solo contener espacios en blanco")
     @Size(min = 4, max = 30, message = "El nombre tiene que estar entre 4 y 30 cararteres")
+    @Pattern(regexp = "^([A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+(\s)?)+$", message = "El(los) nombres deben comenzar por mayuscula y contener solo letras")
     private String nombre;
+
+    @NotNull(message = "El primer apellido no puede estar vacío ")
+    @NotBlank(message = "El primer apellido no puede solo contener espacios en blanco")
+    @Size(min = 4, max = 30, message = "El primer apellido tiene que estar entre 4 y 30 cararteres")
     private String primerApellido;
     private String segundoApellido ;
     
     @Enumerated(EnumType.STRING)
     private Genero genero;
+
     private LocalDate fechaMatriculacion;
     private String direccion;
 

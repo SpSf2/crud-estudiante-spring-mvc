@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -22,6 +22,7 @@
         <div>
             <label for="primerApellido">Primer Apellido:</label>
             <input type="text" id="primerApellido" name="primerApellido" required="required" th:field="*{primerApellido}">
+            <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" style="color:red;"></p>
         </div>
         <div>
             <label for="segundoApellido">Segundo Apellido:</label>
