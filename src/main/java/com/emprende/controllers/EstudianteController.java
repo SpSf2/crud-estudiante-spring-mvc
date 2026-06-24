@@ -1,5 +1,9 @@
 package com.emprende.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
@@ -73,16 +78,34 @@ public class EstudianteController {
         BindingResult result,
         @RequestParam String numerosTelefono,
         @RequestParam String dircorreos,
-        Model model) {
+        Model model,
+        @RequestParam(required = false) MultipartFile file) {
 
+            //Comprobamos si hay errores en el formulario
             if (result.hasErrors()) {
 
                 model.addAttribute("facultades", facultadService.getAllFacultades());
                 return "formularioAltaModificacion";
             }
 
-        /*esto es para recibir otro parametro y el tipo String es para convertir la variable a String, 
-        si la variable que se coloca es igual a la variable que almacena el objeto, mejor */
+        /*Preguntar si han enviado foto del Empleado y si es asi, guardar el nombre
+            de la foto en la propiedad, atributo o variable donde se guarde la foto
+            y guardar el contengido de la foto como un archivo en el sistema de archivos
+            (files system) del servidor*/
+        if (file != null && !file.isEmpty()) {
+            Path rutaRelativa = Paths.get("src/main/resources/static/imagenes");
+            String rutaAbsoluta = rutaRelativa.toFile().getAbsolutePath();
+            Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + file.getOriginalFilename());
+
+            try {
+            byte[] bytesFotoRecibida = file.getBytes();
+            Files.write(rutaCompleta, bytesFotoRecibida);
+            estudiante.setFoto(file.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    
 
         LOG.info("Objeto Estudiante Recibido");
 	    LOG.info(estudiante.toString());
