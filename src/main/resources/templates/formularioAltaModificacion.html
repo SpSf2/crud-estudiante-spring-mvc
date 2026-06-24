@@ -6,23 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Alta/Modificacion</title>
 </head>
-
+    <style>
+.error {
+color: red;
+font-weight: bold;
+}
+</style>
 <body>
     <h1>Formulario Alta/Modificacion</h1>
     
     <fieldset>
         <legend>Formulario de Alta o Modificacion</legend>
-        <form th:action="@{/estudiantes/persistir}" method="post" th:object="${estudiante}">
+        <form th:action="@{/estudiantes/persistir}" method="post" th:object="${estudiante}" enctype="multipart/form-data"> 
           <input type="hidden" th:field="*{id}">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" required th:field="*{nombre}">
-            <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color:red;"></p>
+            <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></p>
         </div>
         <div>
             <label for="primerApellido">Primer Apellido:</label>
             <input type="text" id="primerApellido" name="primerApellido" required="required" th:field="*{primerApellido}">
-            <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" style="color:red;"></p>
+            <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error"></p>
         </div>
         <div>
             <label for="segundoApellido">Segundo Apellido:</label>
@@ -42,11 +47,13 @@
           <div> 
             <label for="fechaMatriculacion">Fecha de Matriculacion:</label>
             <input type="date" id="fechaMatriculacion" th:field="*{fechaMatriculacion}">
+           <p th:if="${#fields.hasErrors('fechaMatriculacion')}" th:errors="*{fechaMatriculacion}" class="error"><Fecha Incorrecta></p>
           </div>
           
           <div>
             <label for="direccion">Direccion:</label>
             <input type="text" id="direccion" name="direccion" th:field="*{direccion}">
+            <p th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" class="error"></p>
           </div>
           <div>
             <label for="numerosTelefono">Numeros de Telefono:</label>
@@ -66,6 +73,11 @@
               </option>
             </select>
           </div> 
+
+          <div>
+            <label for="file">Foto del Estudiante</label>
+            <input type="file" id="file" name="file" title="Selecciona un archivo">
+          </div>
           <div>
             <button type="submit">Enviar</button>
           </div>
