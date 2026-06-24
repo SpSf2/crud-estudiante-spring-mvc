@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,14 +99,13 @@ public class EstudianteController {
             Path rutaCompleta = Paths.get(rutaAbsoluta + "/" + file.getOriginalFilename());
 
             try {
-            byte[] bytesFotoRecibida = file.getBytes();
-            Files.write(rutaCompleta, bytesFotoRecibida);
-            estudiante.setFoto(file.getOriginalFilename());
+                byte[] bytesFotoRecibida = file.getBytes();
+                Files.write(rutaCompleta, bytesFotoRecibida);
+                estudiante.setFoto(file.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    
+        }    
 
         LOG.info("Objeto Estudiante Recibido");
 	    LOG.info(estudiante.toString());
@@ -150,6 +150,20 @@ public class EstudianteController {
 	*/
         estudianteService.saveEstudiante(estudiante);
         return "redirect:/estudiantes/listar";
+    }
+
+
+    // Metodo que muestra los detalles de un empleado cuyo id se recibe como parámetro:
+    @GetMapping(path="/details/{id}")
+    public String mostrarDetalles(Model model, 
+                  @PathVariable(name = "id", required = true) int estudiante_id) {
+
+        //Recuperar el estudiante cuyo id se recibe como parámetro:
+        model.addAttribute("estudiante", 
+                           estudianteService.getEstudianteById(estudiante_id));
+
+        return "details";
+        
     }
 }
 

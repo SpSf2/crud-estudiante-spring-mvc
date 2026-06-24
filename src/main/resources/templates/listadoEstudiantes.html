@@ -31,7 +31,7 @@
             <td th:text="${estudiante.genero}"></td>
             <td th:text="${estudiante.fechaMatriculacion}"></td>
             <td th:text="${estudiante.direccion}"></td>
-            
+            <td><a th:href="@{/estudiantes/details/}+${estudiante.id}">Detalles</a></td>
           </tr>
         </tbody>
     </table>

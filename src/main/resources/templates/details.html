@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Estudiante</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 30px;
+        }
+
+        h1 {
+        margin-bottom: 10px;
+        }
+
+        .bloque {
+        margin-bottom: 20px;
+        }
+
+        .titulo {
+        font-weight: bold;
+        }
+
+        ul {
+        margin-top: 5px;
+        }
+
+        a {
+        display: inline-block;
+        margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+     <h1>Detalles del Estudiante</h1>
+
+     <div class="bloque">
+        <span class="titulo">Nombre completo:</span>
+        <span th:text="${estudiante.nombre} + ' ' + ${estudiante.primerApellido} + ' ' + ${estudiante.segundoApellido}"></span>
+        </div>
+
+        <div class="bloque">
+        <span class="titulo">Facultad:</span>
+        <span th:text="${estudiante.facultad.nombre}"></span>
+        </div>
+
+        <div class="bloque" th:if="${estudiante.telefonos.size() > 0}">
+        <span class="titulo">Teléfonos:</span>
+        <ul>
+        <li th:each="telefono : ${estudiante.telefonos}"
+        th:text="${telefono.numero}"></li>
+        </ul>
+        </div>
+
+        <p th:unless="${estudiante.telefonos.size() > 0}">
+        No hay teléfonos registrados.
+        </p>
+
+        <div class="bloque" th:if="${estudiante.correos.size() > 0}">
+        <span class="titulo">Correos:</span>
+        <ul>
+        <li th:each="correo : ${estudiante.correos}"
+        th:text="${correo.email}"></li>
+        </ul>
+        </div>
+
+        <p th:unless="${estudiante.correos.size() > 0}">
+        No hay correos registrados.
+        </p>
+
+        <div th:if="${estudiante.foto != null}">
+        <span class="titulo">Foto:</span>
+        <img th:src="@{'/imagenes/' + ${estudiante.foto}}" alt="Foto del estudiante">
+        </div>
+        <p class="mensaje-error" th:unless="${estudiante.foto != null}">
+            No se ha agregado una foto de perfil.
+        </p>
+
+<a th:href="@{/estudiantes/listar}">Volver al listado</a>
+</body>
+</html>
