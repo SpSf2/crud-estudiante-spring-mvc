@@ -148,14 +148,17 @@ public class EstudianteController {
         });
     }
 
-       // Antes de persistir el estudiante, hay que eliminar los telefonos y correos que ya existan
-       // antes de agregarlos los nuevos que se recibieron en el formulario
-       if (telefonoService.existsByEstudiante(estudiante)) 
-           telefonoService.deleteByEstudiante(estudiante);
-        
-       if (correoService.existsByEstudiante(estudiante)) 
-           correoService.deleteByEstudiante(estudiante);
+       // Antes de persistir el estudiante, hay que eliminar los telefonos y correos que ya existan en el estudiante seleccionado
+       // antes de agregar los nuevos que se recibieron en el formulario
 
+       if (estudiante.getId() != 0) {
+            if (telefonoService.existsByEstudiante(estudiante)) 
+                telefonoService.deleteByEstudiante(estudiante);
+                
+            if (correoService.existsByEstudiante(estudiante)) 
+                correoService.deleteByEstudiante(estudiante);
+        
+       }
         /**Se recibe un objeto Estudiante con los datos del formulario, se envia a la
 	* capa de servicios para que lo guare en la DB
 	*/
@@ -216,6 +219,30 @@ public class EstudianteController {
     }
 
 
+    /*Metodo para eliminar un empleado con sus telefonos y correos correspondientes.
+    hay que eliminar tambien la foto del empleado si este la tuviera */
+
+    @GetMapping("/delete/{idEstudiante}")
+    public String deleteEstudiante(Model model, @PathVariable int idEstudiante) {
+
+        //Primero Comprobar si el empleado tiene foto:
+
+        Estudiante estudiante = estudianteService.getEstudianteById(idEstudiante);
+
+        if (estudiante.getFoto() != null) {
+            //necesitamos la ruta relativa de la foto que se va a eliminar:
+
+            Path rutaRelativa = Paths.get("src/main/resources/static/imagenes/" + estudiante.getFoto());
+            try {
+                Files.delete(rutaRelativa);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        estudianteService.deleteEstudiante(estudiante);
+        return "redirect:/estudiantes/listar";
+    }
 }
 
 
