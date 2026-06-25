@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
 import com.emprende.entities.Telefono;
+import com.emprende.services.CorreoService;
 import com.emprende.services.EstudianteService;
 import com.emprende.services.FacultadService;
+import com.emprende.services.TelefonoService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +43,8 @@ public class EstudianteController {
     //Servicios inyectados
     private final EstudianteService estudianteService;
     private final FacultadService facultadService;
+    private final CorreoService correoService;
+    private final TelefonoService telefonoService;
     
     /*la anotacion @RequiredArgsConstructor  de lombok hace lo mismo que esto que 
     es crear un constructor que genera un objeto: 
@@ -143,12 +148,20 @@ public class EstudianteController {
         });
     }
 
-       // estudiante.setCorreos(correos);
+       // Antes de persistir el estudiante, hay que eliminar los telefonos y correos que ya existan
+       // antes de agregarlos los nuevos que se recibieron en el formulario
+       if (telefonoService.existsByEstudiante(estudiante)) 
+           telefonoService.deleteByEstudiante(estudiante);
+        
+       if (correoService.existsByEstudiante(estudiante)) 
+           correoService.deleteByEstudiante(estudiante);
 
         /**Se recibe un objeto Estudiante con los datos del formulario, se envia a la
 	* capa de servicios para que lo guare en la DB
 	*/
         estudianteService.saveEstudiante(estudiante);
+
+
         return "redirect:/estudiantes/listar";
     }
 
@@ -165,6 +178,44 @@ public class EstudianteController {
         return "details";
         
     }
+
+    @GetMapping(path="/update/{id}")
+    public String updateEstudiante(Model model, @PathVariable(name = "id", required = true) int estudiante_id) {
+
+        //Recuperar el estudiante cuyo id se recibe como parámetro para obtener sus telefonos y correos:
+        Estudiante estudiante = estudianteService.getEstudianteById(estudiante_id);
+        model.addAttribute("estudiante", estudiante);
+
+        //Se necesitan las Facultades desde la capa de Servicios para que se muestren en el formulario al
+        //llamar al estudiante
+        model.addAttribute("facultades", facultadService.getAllFacultades());
+
+        //Recuperando telefonos y correos del estudiante:
+        Set<Telefono> telefonos = estudiante.getTelefonos();
+        
+        if(telefonos.size() > 0) {
+            String numerosTelefono = telefonos.stream()
+                    .map(telefono -> telefono.getNumero())
+                    .collect(Collectors.joining(";"));
+            
+            model.addAttribute("numerosTelefono", numerosTelefono);
+
+        }
+
+        Set<Correo> correos = estudiante.getCorreos();
+        
+        if(correos.size() > 0) {
+            String dircorreos = correos.stream()
+                    .map(correo -> correo.getEmail())
+                    .collect(Collectors.joining(";"));
+            
+            model.addAttribute("dircorreos", dircorreos);
+        }
+
+        return "formularioAltaModificacion";
+    }
+
+
 }
 
 

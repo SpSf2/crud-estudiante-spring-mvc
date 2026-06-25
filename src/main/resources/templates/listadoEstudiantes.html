@@ -32,6 +32,7 @@
             <td th:text="${estudiante.fechaMatriculacion}"></td>
             <td th:text="${estudiante.direccion}"></td>
             <td><a th:href="@{/estudiantes/details/}+${estudiante.id}">Detalles</a></td>
+            <td><a th:href="@{/estudiantes/update/}+${estudiante.id}">Actualizar</a></td>
           </tr>
         </tbody>
     </table>

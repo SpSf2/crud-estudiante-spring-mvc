@@ -77,11 +77,11 @@ public class Estudiante implements Serializable{
     private Facultad facultad;
 
     @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante", orphanRemoval = true)
     private Set<Telefono> telefonos = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "estudiante", orphanRemoval = true)
     private Set<Correo> correos = new HashSet<>();
 
     private String foto;

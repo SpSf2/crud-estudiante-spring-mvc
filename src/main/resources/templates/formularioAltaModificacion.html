@@ -57,11 +57,15 @@ font-weight: bold;
           </div>
           <div>
             <label for="numerosTelefono">Numeros de Telefono:</label>
-            <input type="text" id="numerosTelefono" name="numerosTelefono" placeholder="Uno o varios separados por ;">    
+            <input type="text" id="numerosTelefono" name="numerosTelefono" 
+                               placeholder="Uno o varios separados por ;"
+                               th:value="${numerosTelefono}">
           </div>
           <div>
             <label for="dircorreos">Correos:</label>
-            <input type="text" id="dircorreos" name="dircorreos" placeholder="Uno o varios separados por ;">    
+            <input type="text" id="dircorreos" name="dircorreos" 
+                               placeholder="Uno o varios separados por ;"
+                               th:value="${dircorreos}">
           </div>
           <div>
             <label for="facultades">Facultad:</label>

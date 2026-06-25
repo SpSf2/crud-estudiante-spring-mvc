@@ -8,6 +8,7 @@ import com.emprende.dao.TelefonoDao;
 import com.emprende.entities.Estudiante;
 import com.emprende.entities.Telefono;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
@@ -31,6 +32,7 @@ public class TelefonoServiceImpl implements TelefonoService {
     }
 
     @Override
+    @Transactional
     public void deleteByEstudiante(Estudiante estudiante) {
 
             telefonoDao.deleteByEstudiante(estudiante);
