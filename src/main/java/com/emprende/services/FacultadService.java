@@ -14,6 +14,8 @@ public interface FacultadService {
     // Metodo para obtener todo las Facultades:
      List<Facultad> getAllFacultades();
 
+     long count();
+
 
      
 }

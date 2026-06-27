@@ -29,4 +29,9 @@ public class FacultadServiceImpl implements FacultadService {
         
         return facultadDao.findAll();
     }
+
+    @Override
+    public long count() {
+       return facultadDao.count();
+    }
 }

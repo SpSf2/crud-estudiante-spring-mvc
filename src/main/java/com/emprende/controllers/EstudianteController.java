@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -118,7 +117,7 @@ public class EstudianteController {
         LOG.info("Direcciones de Correo recibidas: " + dircorreos);
 
         //Hay que procesar los datos de los telefonos y correos que vienen en un String
-        /*separados por comas y convertirlos en listas de objetos Telefono y Correo para
+        /*separados por punto y comas y convertirlos en listas de objetos Telefono y Correo para
         * luego agregarlos al objeto Empleado antes de persistirlo en la DB */
 
         //Set<Telefono> telefonos = new HashSet<Telefono>();

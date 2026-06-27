@@ -33,6 +33,12 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		//Esto evita que se reinserten los registros de ejemplo en la DB cuando hay un update
+		//activo en el application.properties
+		if (facultadService.count() > 0 || estudianteService.count() > 0) {
+        return;
+    	}
 	
 		//Creamos registros de ejemplo que deberían reflejarse en la DB, lo cual nos permite comprobar
 		//Que la aplicación funciona correctamente, la capa de servicio y la de persistencia.
@@ -72,10 +78,10 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 					.fechaMatriculacion(LocalDate.of(2015, Month.APRIL, 2))
 					.direccion("Calle 3 numero 2 piso 4")
 					.facultad(facultad1)
-					.telefonos(Set.of(Telefono.builder().numero("+34123456789").build(),
-				    Telefono.builder().numero("+34987654321").build()))
-					.correos(Set.of(Correo.builder().email("jjj@jjj.com").build(),
-					Correo.builder().email("kkk@jjj.com").build()))	
+					.telefonos(Set.of(Telefono.builder().numero("+34123456999").build(),
+				    Telefono.builder().numero("+34987654333").build()))
+					.correos(Set.of(Correo.builder().email("jfg@jjj.com").build(),
+					Correo.builder().email("knmjjjj.com").build()))	
 					.build();
 
 					/*Antes de persistir el estudiante, para que en las tablas de correos y telefonos

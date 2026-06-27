@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +37,9 @@ public class Telefono implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @NotNull(message = "El numero no puede estar vacío ")
+    @NotBlank(message = "El numero no puede solo contener espacios en blanco")
+    @Size(min = 4, max = 30, message = "El numero tiene que estar entre 4 y 30 caracteres")
     @Column(name="numero", nullable=false, unique=true)
     private String numero;
 
