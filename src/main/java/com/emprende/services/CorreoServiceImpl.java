@@ -50,4 +50,9 @@ public class CorreoServiceImpl implements CorreoService{
         return correoDao.findByEstudiante(estudiante);
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return correoDao.existsByEmail(email);
+    }
+
 }

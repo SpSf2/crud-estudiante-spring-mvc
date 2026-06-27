@@ -18,4 +18,7 @@ public interface TelefonoDao extends JpaRepository<Telefono, Integer>{
     //Este Metodo muestra los Telefonos de un Estudiante:
     List<Telefono> findByEstudiante(Estudiante estudiante);
 
+    //Este Metodo es para usarlo en la duplicacion de numeros de telefonos
+    boolean existsByNumero(String numero);
+
 }

@@ -60,14 +60,17 @@ font-weight: bold;
             <input type="text" id="numerosTelefono" name="numerosTelefono" 
                                placeholder="Uno o varios separados por ;"
                                th:value="${numerosTelefono}">
-                     
+            <p th:if="${errorTelefono}" th:text="${errorTelefono}" class="error"></p>         
           </div>
           <div>
             <label for="dircorreos">Correos:</label>
             <input type="text" id="dircorreos" name="dircorreos" 
                                placeholder="Uno o varios separados por ;"
-                               th:value="${dircorreos}">            
+                               th:value="${dircorreos}">   
+            <p th:if="${errorCorreo}" th:text="${errorCorreo}" class="error"></p>
           </div>
+          <p th:if="${errorGeneral}" th:text="${errorGeneral}" class="error"></p>
+          
           <div>
             <label for="facultades">Facultad:</label>
             <select id="facultades" th:field="*{facultad}">

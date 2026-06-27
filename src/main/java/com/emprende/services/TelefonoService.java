@@ -23,4 +23,7 @@ public interface TelefonoService {
     List<Telefono> findByEstudiante(Estudiante estudiante);
 
     boolean existsByEstudiante(Estudiante estudiante);
+
+    // Metodo para evitar la duplicacion
+    boolean existsByNumero(String numero);
 }

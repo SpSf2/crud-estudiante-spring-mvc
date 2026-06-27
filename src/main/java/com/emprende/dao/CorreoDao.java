@@ -18,4 +18,7 @@ public interface CorreoDao extends JpaRepository<Correo, Integer>{
 
     //Este Metodo muestra los Correos de un Estudiante:
     List<Correo> findByEstudiante(Estudiante estudiante);
+
+    // Este Metodo es para usarlo en la duplicacion de correos
+    boolean existsByEmail(String email);
 }

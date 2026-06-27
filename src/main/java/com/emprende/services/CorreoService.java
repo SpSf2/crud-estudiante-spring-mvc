@@ -24,4 +24,7 @@ public interface CorreoService {
     //Metodo para obtener todo los Correos de un Estudiante
     List<Correo> findByEstudiante(Estudiante estudiante);
 
+        // Metodo para evitar la duplicacion
+    boolean existsByEmail(String email);
+
 }

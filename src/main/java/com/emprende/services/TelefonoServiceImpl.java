@@ -50,4 +50,10 @@ public class TelefonoServiceImpl implements TelefonoService {
             return telefonoDao.existsByEstudiante(estudiante);
     }
 
+    @Override
+    public boolean existsByNumero(String numero) {
+        
+            return telefonoDao.existsByNumero(numero);
+        }
+
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -88,9 +89,40 @@ public class EstudianteController {
 
             //Comprobamos si hay errores en el formulario
             if (result.hasErrors()) {
-
                 model.addAttribute("facultades", facultadService.getAllFacultades());
+                model.addAttribute("numerosTelefono", numerosTelefono);
+                model.addAttribute("dircorreos", dircorreos);
                 return "formularioAltaModificacion";
+            }
+
+            //Comprobamos si el telefono ya existe para evitar duplicados
+            model.addAttribute("numerosTelefono", numerosTelefono);
+            model.addAttribute("dircorreos", dircorreos);
+
+            if (!numerosTelefono.isBlank()) {
+                String[] arrayNumerosTelefono = numerosTelefono.split(";");
+                for (String numero : arrayNumerosTelefono) {
+                    String numeroLimpio = numero.trim();
+
+                    if (!numeroLimpio.isEmpty() && telefonoService.existsByNumero(numeroLimpio)) {
+                        model.addAttribute("facultades", facultadService.getAllFacultades());
+                        model.addAttribute("errorTelefono", "El teléfono " + numeroLimpio + " ya existe.");
+                        return "formularioAltaModificacion";
+                    }
+                }
+            }
+                    //Comprobamos si el correo ya existe para evitar duplicados
+            if (!dircorreos.isBlank()) {
+                String[] arrayCorreos = dircorreos.split(";");
+                for (String correo : arrayCorreos) {
+                    String correoLimpio = correo.trim();
+
+                    if (!correoLimpio.isEmpty() && correoService.existsByEmail(correoLimpio)) {
+                        model.addAttribute("facultades", facultadService.getAllFacultades());
+                        model.addAttribute("errorCorreo", "El correo " + correoLimpio + " ya existe.");
+                        return "formularioAltaModificacion";
+                    }
+                }
             }
 
         /*Preguntar si han enviado foto del Empleado y si es asi, guardar el nombre
@@ -159,9 +191,18 @@ public class EstudianteController {
         
        }
         /**Se recibe un objeto Estudiante con los datos del formulario, se envia a la
-	* capa de servicios para que lo guare en la DB
+	* capa de servicios para que lo guare en la DB. Este bloque es la red de seguridad 
+    por si algo se escapa a la validación previa.
 	*/
-        estudianteService.saveEstudiante(estudiante);
+            try {
+                estudianteService.saveEstudiante(estudiante);
+            } catch (DataIntegrityViolationException e) {
+                model.addAttribute("facultades", facultadService.getAllFacultades());
+                model.addAttribute("numerosTelefono", numerosTelefono);
+                model.addAttribute("dircorreos", dircorreos);
+                model.addAttribute("errorGeneral", "Ya existe un teléfono o correo registrado.");
+                return "formularioAltaModificacion";
+        }
 
 
         return "redirect:/estudiantes/listar";
