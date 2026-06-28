@@ -168,7 +168,6 @@ public class EstudianteController {
         return "redirect:/estudiantes/listar";
     }
 
-
     // Metodo que muestra los detalles de un empleado cuyo id se recibe como parámetro:
     @GetMapping(path="/details/{id}")
     public String mostrarDetalles(Model model, 

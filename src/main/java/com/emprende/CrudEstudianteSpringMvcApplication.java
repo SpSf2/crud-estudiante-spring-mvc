@@ -33,7 +33,12 @@ public class CrudEstudianteSpringMvcApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-	
+
+		//Esto evita que se reinserten los registros de ejemplo en la DB cuando hay un update
+		//activo en el application.properties
+		if (facultadService.count() > 0 || estudianteService.count() > 0) {
+			return;
+		}
 		//Creamos registros de ejemplo que deberían reflejarse en la DB, lo cual nos permite comprobar
 		//Que la aplicación funciona correctamente, la capa de servicio y la de persistencia.
 

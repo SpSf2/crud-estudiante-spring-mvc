@@ -26,4 +26,6 @@ public interface EstudianteService {
 
     //Metodo para eliminar un Estudiante pasandole el objeto Estudiante:
      void deleteEstudiante(Estudiante estudiante);
+
+     long count();
 }

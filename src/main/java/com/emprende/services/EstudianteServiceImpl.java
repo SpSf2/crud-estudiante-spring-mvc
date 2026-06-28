@@ -55,6 +55,9 @@ public class EstudianteServiceImpl implements EstudianteService{
         estudianteDao.delete(estudiante);
     }
 
-    
+    @Override
+    public long count() {
+        return estudianteDao.count();
+    }
 
 }
