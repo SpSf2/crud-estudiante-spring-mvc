@@ -1,6 +1,7 @@
 package com.emprende.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -20,5 +21,9 @@ public interface TelefonoDao extends JpaRepository<Telefono, Integer>{
 
     //Este Metodo es para usarlo en la duplicacion de numeros de telefonos
     boolean existsByNumero(String numero);
+
+    //Este Metodo es para usarlo en la Actualización de numeros de telefonos
+    //para evitar que el mismo estudiante le de error su propio numero al actualizar otro campo
+    Optional<Telefono> findByNumero(String numero);
 
 }

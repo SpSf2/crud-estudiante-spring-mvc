@@ -5,6 +5,7 @@ import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface CorreoDao extends JpaRepository<Correo, Integer>{
@@ -21,4 +22,9 @@ public interface CorreoDao extends JpaRepository<Correo, Integer>{
 
     // Este Metodo es para usarlo en la duplicacion de correos
     boolean existsByEmail(String email);
+
+    // Este Metodo es para usarlo en la Actualización de correos
+    //para evitar que el mismo estudiante le de error su propio correo 
+    // al actualizar otro campo
+    Optional<Correo> findByEmail(String email);
 }

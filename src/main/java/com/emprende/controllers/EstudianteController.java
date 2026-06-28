@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -104,10 +105,20 @@ public class EstudianteController {
                 for (String numero : arrayNumerosTelefono) {
                     String numeroLimpio = numero.trim();
 
-                    if (!numeroLimpio.isEmpty() && telefonoService.existsByNumero(numeroLimpio)) {
-                        model.addAttribute("facultades", facultadService.getAllFacultades());
-                        model.addAttribute("errorTelefono", "El teléfono " + numeroLimpio + " ya existe.");
-                        return "formularioAltaModificacion";
+                    if (!numeroLimpio.isEmpty()) {
+                        Optional<Telefono> telefonoExistente = telefonoService.findByNumero(numeroLimpio);
+
+                        if (telefonoExistente.isPresent()) {
+                            int idEstudianteTelefono = telefonoExistente.get().getEstudiante().getId();
+
+                            if (estudiante.getId() == 0 || idEstudianteTelefono != estudiante.getId()) {
+                                model.addAttribute("facultades", facultadService.getAllFacultades());
+                                model.addAttribute("numerosTelefono", numerosTelefono);
+                                model.addAttribute("dircorreos", dircorreos);
+                                model.addAttribute("errorTelefono", "El teléfono " + numeroLimpio + " ya existe.");
+                                return "formularioAltaModificacion";
+                            }
+                        }
                     }
                 }
             }
@@ -117,10 +128,20 @@ public class EstudianteController {
                 for (String correo : arrayCorreos) {
                     String correoLimpio = correo.trim();
 
-                    if (!correoLimpio.isEmpty() && correoService.existsByEmail(correoLimpio)) {
-                        model.addAttribute("facultades", facultadService.getAllFacultades());
-                        model.addAttribute("errorCorreo", "El correo " + correoLimpio + " ya existe.");
-                        return "formularioAltaModificacion";
+                    if (!correoLimpio.isEmpty()) {
+                        Optional<Correo> correoExistente = correoService.findByEmail(correoLimpio);
+
+                        if (correoExistente.isPresent()) {
+                            int idEstudianteCorreo = correoExistente.get().getEstudiante().getId();
+
+                            if (estudiante.getId() == 0 || idEstudianteCorreo != estudiante.getId()) {
+                                model.addAttribute("facultades", facultadService.getAllFacultades());
+                                model.addAttribute("numerosTelefono", numerosTelefono);
+                                model.addAttribute("dircorreos", dircorreos);
+                                model.addAttribute("errorCorreo", "El correo " + correoLimpio + " ya existe.");
+                                return "formularioAltaModificacion";
+                            }
+                        }
                     }
                 }
             }

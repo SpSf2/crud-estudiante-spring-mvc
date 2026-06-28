@@ -1,6 +1,7 @@
 package com.emprende.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -55,4 +56,8 @@ public class CorreoServiceImpl implements CorreoService{
         return correoDao.existsByEmail(email);
     }
 
+    @Override
+    public Optional<Correo> findByEmail(String email) {
+        return correoDao.findByEmail(email);
+    }
 }

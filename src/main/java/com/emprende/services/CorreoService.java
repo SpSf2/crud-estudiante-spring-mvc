@@ -1,6 +1,7 @@
 package com.emprende.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
@@ -27,4 +28,7 @@ public interface CorreoService {
         // Metodo para evitar la duplicacion
     boolean existsByEmail(String email);
 
+    // Metodo para evitar que al mismo estudiante le de error su 
+    // propio correo al actualizar otro campo
+    Optional<Correo> findByEmail(String email);
 }
