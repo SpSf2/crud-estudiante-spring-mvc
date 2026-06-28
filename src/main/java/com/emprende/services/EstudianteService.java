@@ -28,4 +28,6 @@ public interface EstudianteService {
      void deleteEstudiante(Estudiante estudiante);
 
      long count();
+
+     List<Estudiante> findAllByOrderByBecaDesc();
 }

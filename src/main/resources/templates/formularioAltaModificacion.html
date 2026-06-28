@@ -92,6 +92,12 @@ font-weight: bold;
           </div>
 
           <div>
+              <label for="beca">Beca</label>
+              <input type="number" id="beca" step="any" th:field="*{beca}">
+              <p th:if="${#fields.hasErrors('beca')}" th:errors="*{beca}" class="error"></p>
+          </div>
+
+          <div>
             <button type="submit">Enviar</button>
           </div>
       </form>

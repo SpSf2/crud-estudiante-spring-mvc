@@ -61,6 +61,12 @@ public class EstudianteServiceImpl implements EstudianteService{
         return estudianteDao.count();
     }
 
+    @Override
+    public List<Estudiante> findAllByOrderByBecaDesc() {
+        
+        return estudianteDao.findAllByOrderByBecaDesc();
+    }
+
     
 
 }

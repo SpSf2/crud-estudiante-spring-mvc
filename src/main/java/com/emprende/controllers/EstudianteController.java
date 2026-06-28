@@ -304,6 +304,16 @@ public class EstudianteController {
         estudianteService.deleteEstudiante(estudiante);
         return "redirect:/estudiantes/listar";
     }
+
+
+    @GetMapping("/listadoBeca")
+    public String listadoBeca(Model model) {
+
+        model.addAttribute("estudiantes", estudianteService.findAllByOrderByBecaDesc());
+        return "listadoBeca";
+    }
+
+
 }
 
 
