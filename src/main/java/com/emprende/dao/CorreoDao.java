@@ -5,6 +5,7 @@ import com.emprende.entities.Correo;
 import com.emprende.entities.Estudiante;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface CorreoDao extends JpaRepository<Correo, Integer>{
@@ -18,4 +19,9 @@ public interface CorreoDao extends JpaRepository<Correo, Integer>{
 
     //Este Metodo muestra los Correos de un Estudiante:
     List<Correo> findByEstudiante(Estudiante estudiante);
+
+    // Este Metodo es para usarlo en el formulario del link Actualizar para
+    //evitar que el mismo estudiante le de error su propio correo al actualizar otro campo
+
+    Optional<Correo> findByEmail(String email);
 }

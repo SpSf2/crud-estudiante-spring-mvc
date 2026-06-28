@@ -1,6 +1,7 @@
 package com.emprende.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -49,5 +50,10 @@ public class TelefonoServiceImpl implements TelefonoService {
 
             return telefonoDao.existsByEstudiante(estudiante);
     }
+
+    @Override
+        public Optional<Telefono> findByNumero(String numero) {
+                return telefonoDao.findByNumero(numero);
+        }
 
 }

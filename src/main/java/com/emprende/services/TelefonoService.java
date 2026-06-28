@@ -1,6 +1,7 @@
 package com.emprende.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.emprende.entities.Estudiante;
 import com.emprende.entities.Telefono;
@@ -23,4 +24,8 @@ public interface TelefonoService {
     List<Telefono> findByEstudiante(Estudiante estudiante);
 
     boolean existsByEstudiante(Estudiante estudiante);
+
+    // Metodo para evitar que al mismo estudiante le de error su 
+    // propio numero al actualizar otro campo
+    Optional<Telefono> findByNumero(String numero);
 }

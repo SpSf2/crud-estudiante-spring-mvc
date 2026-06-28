@@ -1,6 +1,7 @@
 package com.emprende.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,11 @@ public class CorreoServiceImpl implements CorreoService{
     public List<Correo> findByEstudiante(Estudiante estudiante) {
 
         return correoDao.findByEstudiante(estudiante);
+    }
+
+    @Override 
+    public Optional<Correo> findByEmail(String email) {
+        return correoDao.findByEmail(email);
     }
 
 }

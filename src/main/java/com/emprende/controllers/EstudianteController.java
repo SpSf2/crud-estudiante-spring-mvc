@@ -7,10 +7,12 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,9 +91,59 @@ public class EstudianteController {
 
             //Comprobamos si hay errores en el formulario
             if (result.hasErrors()) {
-
                 model.addAttribute("facultades", facultadService.getAllFacultades());
+                model.addAttribute("numerosTelefono", numerosTelefono);
+                model.addAttribute("dircorreos", dircorreos);
                 return "formularioAltaModificacion";
+            }
+
+            model.addAttribute("numerosTelefono", numerosTelefono);
+            model.addAttribute("dircorreos", dircorreos);
+            //Comprobamos si el estudiante ya tiene un telefono con ese numero
+            if (!numerosTelefono.isBlank()) {
+                String[] arrayNumerosTelefono = numerosTelefono.split(";");
+                for (String numero : arrayNumerosTelefono) {
+                    String numeroLimpio = numero.trim();
+
+                    if (!numeroLimpio.isEmpty()) {
+                        Optional<Telefono> telefonoExistente = telefonoService.findByNumero(numeroLimpio);
+
+                        if (telefonoExistente.isPresent()) {
+                            int idEstudianteTelefono = telefonoExistente.get().getEstudiante().getId();
+
+                            if (estudiante.getId() == 0 || idEstudianteTelefono != estudiante.getId()) {
+                                model.addAttribute("facultades", facultadService.getAllFacultades());
+                                model.addAttribute("numerosTelefono", numerosTelefono);
+                                model.addAttribute("dircorreos", dircorreos);
+                                model.addAttribute("errorTelefono", "El teléfono " + numeroLimpio + " ya existe.");
+                                return "formularioAltaModificacion";
+                            }
+                        }
+                    }
+                }
+            }
+                //Comprobamos si el estudiante ya tiene un correo con ese email
+            if (!dircorreos.isBlank()) {
+                String[] arrayCorreos = dircorreos.split(";");
+                for (String correo : arrayCorreos) {
+                    String correoLimpio = correo.trim();
+
+                    if (!correoLimpio.isEmpty()) {
+                        Optional<Correo> correoExistente = correoService.findByEmail(correoLimpio);
+
+                        if (correoExistente.isPresent()) {
+                            int idEstudianteCorreo = correoExistente.get().getEstudiante().getId();
+
+                            if (estudiante.getId() == 0 || idEstudianteCorreo != estudiante.getId()) {
+                                model.addAttribute("facultades", facultadService.getAllFacultades());
+                                model.addAttribute("numerosTelefono", numerosTelefono);
+                                model.addAttribute("dircorreos", dircorreos);
+                                model.addAttribute("errorCorreo", "El correo " + correoLimpio + " ya existe.");
+                                return "formularioAltaModificacion";
+                            }
+                        }
+                    }
+                }
             }
 
         /*Preguntar si han enviado foto del Empleado y si es asi, guardar el nombre
@@ -127,7 +179,8 @@ public class EstudianteController {
             List<String> listadoNumeros = Arrays.asList(arrayNumerosTelefono);
 
         listadoNumeros.forEach(numero -> {
-            estudiante.getTelefonos().add(Telefono.builder().numero(numero).estudiante(estudiante).build());
+            estudiante.getTelefonos().add(Telefono.builder()
+            .numero(numero.trim()).estudiante(estudiante).build());
         });
     }
     //estudiante.setTelefonos(telefonos);
@@ -160,9 +213,18 @@ public class EstudianteController {
         
        }
         /**Se recibe un objeto Estudiante con los datos del formulario, se envia a la
-	* capa de servicios para que lo guare en la DB
-	*/
-        estudianteService.saveEstudiante(estudiante);
+        * capa de servicios para que lo guare en la DB. Este bloque es la red de seguridad 
+        por si algo se escapa a la validación previa.
+        */
+        try {
+            estudianteService.saveEstudiante(estudiante);
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("facultades", facultadService.getAllFacultades());
+            model.addAttribute("numerosTelefono", numerosTelefono);
+            model.addAttribute("dircorreos", dircorreos);
+            model.addAttribute("errorGeneral", "Ya existe un teléfono o correo registrado.");
+            return "formularioAltaModificacion";
+        }
 
 
         return "redirect:/estudiantes/listar";
