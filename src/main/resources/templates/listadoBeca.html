@@ -7,9 +7,7 @@
 </head>
 <body>
     <h1>Listado Ordenado por Beca</h1>
-      <div>
-         <a th:href="@{/estudiantes/listadoBeca}">Alta Estudiantes</a>
-      </div>
+      
     <table>
         <thead>
             <tr>
@@ -18,7 +16,7 @@
                 <th>Segundo Apellido</th>
                 <th>Genero</th>
                 <th>Fecha de Matriculacion</th>
-                <th>direccion</th>
+                <th>Direccion</th>
                 <th>Beca</th>
             </tr>
         </thead>
@@ -41,5 +39,6 @@
           </tr>
         </tbody>
     </table>
+  <a th:href="@{/estudiantes/listar}">Volver al listado</a>
 </body>
 </html>
