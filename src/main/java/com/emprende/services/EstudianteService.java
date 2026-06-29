@@ -28,4 +28,7 @@ public interface EstudianteService {
      void deleteEstudiante(Estudiante estudiante);
 
      long count();
+
+     //Metodo para obtener Estudiantes ordenados por campos:
+     List<Estudiante> getEstudiantesOrdenados(String campo);
 }
