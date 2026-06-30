@@ -2,6 +2,7 @@ package com.emprende.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.emprende.dao.EstudianteDao;
@@ -67,6 +68,12 @@ public class EstudianteServiceImpl implements EstudianteService{
         return estudianteDao.findAllByOrderByBecaDesc();
     }
 
-    
+    @Override
+    public List<Estudiante> getEstudiantesOrdenados(String campo) {
+        if ("beca".equals(campo)) {
+            return estudianteDao.findAll(Sort.by(Sort.Direction.DESC, campo));
+        }
+        return estudianteDao.findAll(Sort.by(Sort.Direction.ASC, campo));
+    }
 
 }

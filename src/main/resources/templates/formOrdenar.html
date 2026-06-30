@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ordenar Estudiantes</h1>
+
+    <form th:action="@{/estudiantes/ordenar}" method="get">
+        <label for="campo">Seleccione el campo:</label>
+        <select name="campo" id="campo">
+            <option value="nombre">Nombre</option>
+            <option value="primerApellido">Primer Apellido</option>
+            <option value="genero">Género</option>
+            <option value="fechaMatriculacion">Fecha de Matriculación</option>
+            <option value="beca">Beca</option>
+        </select>
+        <button type="submit">Ordenar</button>
+    </form>
+  <a th:href="@{/estudiantes/listar}">Volver al listado</a>
+</body>
+</html>

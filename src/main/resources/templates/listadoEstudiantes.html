@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Estudiantes</title>
+<style>
+    .menu-links a {
+        margin-right: 15px;
+    }
+</style>
 </head>
 
 <body>
     <h1>Listado de Estudiantes</h1>
-      <div>
-         <a th:href="@{/estudiantes/alta}">Alta Estudiantes</a>
-         <a th:href="@{/estudiantes/listadoBeca}">Listado Ordenado por Beca</a>
+      <div class="menu-links">
+        <a th:href="@{/estudiantes/alta}">Alta Estudiantes</a>
+        <a th:href="@{/estudiantes/listadoBeca}">Listado Ordenado por Beca</a>
+        <a th:href="@{/estudiantes/formOrdenar}">Ordenar Estudiantes</a>
       </div>
     <table>
         <thead>

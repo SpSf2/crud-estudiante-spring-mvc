@@ -30,4 +30,7 @@ public interface EstudianteService {
      long count();
 
      List<Estudiante> findAllByOrderByBecaDesc();
+
+    List<Estudiante> getEstudiantesOrdenados(String campo);
+
 }

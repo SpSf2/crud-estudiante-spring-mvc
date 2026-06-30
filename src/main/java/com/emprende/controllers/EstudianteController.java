@@ -313,7 +313,20 @@ public class EstudianteController {
         return "listadoBeca";
     }
 
+    //Metodo para ordenar los estudiantes por campo
+    @GetMapping("/formOrdenar")
+    public String mostrarFormularioOrdenar() {
+        
+        return "formOrdenar";
+    }
 
+    //Método que recibe el campo y devuelve el listado ordenado.
+
+    @GetMapping("/ordenar")
+    public String ordenarEstudiantes(@RequestParam("campo") String campo, Model model) {
+        model.addAttribute("estudiantes", estudianteService.getEstudiantesOrdenados(campo));
+        return "listadoEstudiantes";
+    }
 }
 
 
