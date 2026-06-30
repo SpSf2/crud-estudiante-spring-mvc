@@ -325,6 +325,7 @@ public class EstudianteController {
     @GetMapping("/ordenar")
     public String ordenarEstudiantes(@RequestParam("campo") String campo, Model model) {
         model.addAttribute("estudiantes", estudianteService.getEstudiantesOrdenados(campo));
+        model.addAttribute("campoSeleccionado", campo);
         return "listadoEstudiantes";
     }
 }

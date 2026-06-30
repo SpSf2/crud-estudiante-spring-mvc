@@ -9,6 +9,9 @@
     .menu-links a {
         margin-right: 15px;
     }
+    .columna-activa {
+        background-color: #e1f38f;
+    }
 </style>
 </head>
 
@@ -22,24 +25,24 @@
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Primer Apellido</th>
+                <th th:classappend="${campoSeleccionado == 'nombre'} ? 'columna-activa'">Nombre</th>
+                <th th:classappend="${campoSeleccionado == 'primerApellido'} ? 'columna-activa'">Primer Apellido</th>
                 <th>Segundo Apellido</th>
-                <th>Genero</th>
-                <th>Fecha de Matriculacion</th>
-                <th>direccion</th>
-                <th>Beca</th>
+                <th th:classappend="${campoSeleccionado == 'genero'} ? 'columna-activa'">Genero</th>
+                <th th:classappend="${campoSeleccionado == 'fechaMatriculacion'} ? 'columna-activa'">Fecha de Matriculacion</th>
+                <th>Direccion</th>
+                <th th:classappend="${campoSeleccionado == 'beca'} ? 'columna-activa'">Beca</th>
             </tr>
         </thead>
         <tbody>
           <tr th:each="estudiante : ${estudiantes}">
-            <td th:text="${estudiante.nombre}"></td>
-            <td th:text="${estudiante.primerApellido}"></td>
+            <td th:text="${estudiante.nombre}" th:classappend="${campoSeleccionado == 'nombre'} ? 'columna-activa'"></td>
+            <td th:text="${estudiante.primerApellido}" th:classappend="${campoSeleccionado == 'primerApellido'} ? 'columna-activa'"></td>
             <td th:text="${estudiante.segundoApellido}"></td>
-            <td th:text="${estudiante.genero}"></td>
-            <td th:text="${estudiante.fechaMatriculacion}"></td>
+            <td th:text="${estudiante.genero}" th:classappend="${campoSeleccionado == 'genero'} ? 'columna-activa'"></td>
+            <td th:text="${estudiante.fechaMatriculacion}" th:classappend="${campoSeleccionado == 'fechaMatriculacion'} ? 'columna-activa'"></td>
             <td th:text="${estudiante.direccion}"></td>
-            <td th:text="${estudiante.beca}"></td>
+            <td th:text="${estudiante.beca}" th:classappend="${campoSeleccionado == 'beca'} ? 'columna-activa'"></td>
             <td><a th:href="@{/estudiantes/details/}+${estudiante.id}">Detalles</a></td>
             <td><a th:href="@{/estudiantes/update/}+${estudiante.id}">Actualizar</a></td>
             <td><form th:action="@{/estudiantes/delete/}+${estudiante .id}" method="get" class="d-inline"
