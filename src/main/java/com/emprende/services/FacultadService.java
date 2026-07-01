@@ -16,6 +16,10 @@ public interface FacultadService {
 
      long count();
 
+     void persistirFacultad(Facultad facultad);
+
+     boolean existeFacultadPorNombre(String nombre);
+
 
      
 }

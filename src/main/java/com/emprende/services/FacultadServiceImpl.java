@@ -34,4 +34,17 @@ public class FacultadServiceImpl implements FacultadService {
     public long count() {
        return facultadDao.count();
     }
+
+    @Override
+    public void persistirFacultad(Facultad facultad) {
+        facultadDao.save(facultad);
+    }
+
+
+    @Override
+    public boolean existeFacultadPorNombre(String nombre) {
+        return facultadDao.existsByNombre(nombre);
+    }
+
+    
 }

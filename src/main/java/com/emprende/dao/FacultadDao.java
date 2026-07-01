@@ -6,4 +6,6 @@ import com.emprende.entities.Facultad;
 
 public interface FacultadDao extends JpaRepository<Facultad, Integer> {
 
+    //Metodo para comprobar si existe una facultad con el nombre que se le pasa por parametro:
+    boolean existsByNombre(String nombre);
 }
