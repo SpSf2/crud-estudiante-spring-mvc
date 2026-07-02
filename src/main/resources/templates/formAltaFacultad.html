@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta de Facultades</title>
 
     <style>
-           .mensaje {
-        color: rgb(52, 172, 41);
-        font-weight: bold;
+        .mensaje {
+            color: rgb(52, 172, 41);
+            font-weight: bold;
         }
-           .error {
-        color: red;
-        font-weight: bold;
+
+        .error {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <h1>Alta de Facultades</h1>
+
+    <p th:if="${mensaje}" th:text="${mensaje}" class="mensaje"></p>
+    <p th:if="${error}" th:text="${error}" class="error"></p>
+
     <form th:action="@{/facultades/persistir}" th:object="${facultad}" method="post">
         <div>
             <label for="nombre">Nombre</label>
             <input type="text" id="nombre" th:field="*{nombre}">
         </div>
-        <p th:if="${mensaje}" th:text="${mensaje}" class="mensaje"></p>
-        <p th:if="${error}" th:text="${error}" class="error"></p>
+
         <button type="submit">Guardar</button>
     </form>
+
+    <br>
+
+    <a th:href="@{/facultades/listado}">Ver listado de facultades</a>
+    <br>
     <a th:href="@{/}">Volver al Menú Principal</a>
 </body>
 </html>

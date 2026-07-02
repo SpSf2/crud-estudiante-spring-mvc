@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Facultades</title>
+</head>
+<body>
+
+    <h1>Listado de Facultades</h1>
+
+    <p th:if="${mensaje}" th:text="${mensaje}" style="color:green;"></p>
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="facultad : ${facultades}">
+            <td th:text="${facultad.id}"></td>
+            <td th:text="${facultad.nombre}"></td>
+            <td>
+                <a th:href="@{/facultades/eliminar/{id}(id=${facultad.id})}">Eliminar</a>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <a th:href="@{/facultades/alta}">Ir al alta de facultad</a>
+
+</body>
+</html>

@@ -20,6 +20,10 @@ public interface FacultadService {
 
      boolean existeFacultadPorNombre(String nombre);
 
+     boolean facultadTieneEstudiantes(Integer id);
+     
+     void eliminarFacultad(Integer id);
+
 
      
 }

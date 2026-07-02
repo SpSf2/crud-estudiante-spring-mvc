@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.emprende.dao.EstudianteDao;
 import com.emprende.dao.FacultadDao;
 import com.emprende.entities.Facultad;
 
@@ -17,6 +18,8 @@ public class FacultadServiceImpl implements FacultadService {
 
     //Inyectamos la capa Dao:
     private final FacultadDao facultadDao;
+    private final EstudianteDao estudianteDao;
+
 
     @Override
     public Facultad saveFacultad(Facultad facultad) {
@@ -46,5 +49,15 @@ public class FacultadServiceImpl implements FacultadService {
         return facultadDao.existsByNombre(nombre);
     }
 
+   @Override
+    public boolean facultadTieneEstudiantes(Integer id) {
+        return estudianteDao.existsByFacultadId(id);
+    }
+
+    @Override
+    public void eliminarFacultad(Integer id) {
+        facultadDao.deleteById(id);
+    }
+        
     
 }
