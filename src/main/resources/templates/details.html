@@ -42,7 +42,7 @@
 
         <div class="bloque">
         <span class="titulo">Facultad:</span>
-        <span th:text="${estudiante.facultad.nombre}"></span>
+        <span th:text="${estudiante?.facultad?.nombre} ?: 'Sin facultad'"></span>
         </div>
 
         <div class="bloque" th:if="${estudiante.telefonos.size() > 0}">

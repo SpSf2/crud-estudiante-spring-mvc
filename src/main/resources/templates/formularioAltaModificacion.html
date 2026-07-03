@@ -43,6 +43,7 @@ font-weight: bold;
                 <label for="otro">Otro</label>
                 <input type="radio" id="otro" name="genero" value="OTRO" th:field="*{genero}">
             </fieldset>
+            <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}" class="error"></p>
         </div>
           <div> 
             <label for="fechaMatriculacion">Fecha de Matriculacion:</label>
@@ -80,6 +81,7 @@ font-weight: bold;
                       th:text="${facultad.nombre}">
               </option>
             </select>
+            <p th:if="${#fields.hasErrors('facultad')}" th:errors="*{facultad}" class="error"></p>
           </div> 
 
           <div>

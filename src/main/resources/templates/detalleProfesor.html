@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Profesor</title>
+    <style>
+        .detalle {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Detalle del Profesor</h1>
+
+<div class="detalle">
+    <strong>Nombre:</strong>
+    <span th:text="${profesor.nombre + ' ' + profesor.primerApellido + ' ' + profesor.segundoApellido}"></span>
+</div>
+
+<div class="detalle">
+    <strong>Facultad:</strong>
+    <span th:text="${profesor.facultad.nombre}"></span>
+</div>
+
+<div class="detalle">
+    <strong>Foto:</strong>
+    <div>
+        <img th:if="${profesor.foto != null}"
+             th:src="@{'/imagenes/' + ${profesor.foto}}"
+             alt="Foto del profesor"
+             style="max-width: 200px;">
+        <span th:if="${profesor.foto == null}">Sin foto</span>
+    </div>
+</div>
+
+<br>
+<a th:href="@{/profesores/listado}">Volver al listado</a>
+
+</body>
+</html>

@@ -18,6 +18,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -54,16 +55,18 @@ public class Estudiante implements Serializable{
     @NotNull(message = "El nombre no puede estar vacío ")
     @NotBlank(message = "El nombre no puede solo contener espacios en blanco")
     @Size(min = 4, max = 30, message = "El nombre tiene que estar entre 4 y 30 caracteres")
-    @Pattern(regexp = "^([A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+(\s)?)+$", message = "El(los) nombres deben comenzar por mayuscula y contener solo letras")
+    @Pattern(regexp = "^([A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+(\s)?)+$", message = "El(los) nombres deben comenzar por Mayúscula y contener solo letras")
     private String nombre;
 
     @NotNull(message = "El primer apellido no puede estar vacío ")
     @NotBlank(message = "El primer apellido no puede solo contener espacios en blanco")
     @Size(min = 4, max = 30, message = "El primer apellido tiene que estar entre 4 y 30 caracteres")
+    @Pattern(regexp = "^([A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+(\s)?)+$", message = "El primer apellido debe comenzar por Mayúscula y contener solo letras")
     private String primerApellido;
     private String segundoApellido ;
     
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Debe seleccionar un genero")
     private Genero genero;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -76,6 +79,8 @@ public class Estudiante implements Serializable{
     private String direccion;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "facultad_id", nullable = false)
+    @NotNull(message = "Debe seleccionar una facultad")
     private Facultad facultad;
 
     @Builder.Default

@@ -1,58 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Estudiantes</title>
-<style>
-    .menu-links a {
-        margin-right: 15px;
-    }
-    .columna-activa {
-        background-color: #e1f38f;
-    }
-</style>
+    <style>
+        .mensaje {
+            color: rgb(52, 172, 41);
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .columna-activa {
+            background-color: #e1f38f;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Listado de Estudiantes</h1>
-      <div class="menu-links">
-        <a th:href="@{/estudiantes/alta}">Alta Estudiantes</a>
-        <a th:href="@{/estudiantes/listadoBeca}">Listado Ordenado por Beca</a>
-        <a th:href="@{/estudiantes/formOrdenar}">Ordenar Estudiantes</a>
-      </div>
-    <table>
-        <thead>
-            <tr>
-                <th th:classappend="${campoSeleccionado == 'nombre'} ? 'columna-activa'">Nombre</th>
-                <th th:classappend="${campoSeleccionado == 'primerApellido'} ? 'columna-activa'">Primer Apellido</th>
-                <th>Segundo Apellido</th>
-                <th th:classappend="${campoSeleccionado == 'genero'} ? 'columna-activa'">Genero</th>
-                <th th:classappend="${campoSeleccionado == 'fechaMatriculacion'} ? 'columna-activa'">Fecha de Matriculacion</th>
-                <th>Direccion</th>
-                <th th:classappend="${campoSeleccionado == 'beca'} ? 'columna-activa'">Beca</th>
-            </tr>
-        </thead>
-        <tbody>
-          <tr th:each="estudiante : ${estudiantes}">
-            <td th:text="${estudiante.nombre}" th:classappend="${campoSeleccionado == 'nombre'} ? 'columna-activa'"></td>
-            <td th:text="${estudiante.primerApellido}" th:classappend="${campoSeleccionado == 'primerApellido'} ? 'columna-activa'"></td>
+
+<h1>Listado de Estudiantes</h1>
+
+<p th:if="${mensaje}" th:text="${mensaje}" class="mensaje"></p>
+<p th:if="${error}" th:text="${error}" class="error"></p>
+
+<a th:href="@{/estudiantes/alta}">Alta Estudiantes</a>
+|
+<a th:href="@{/estudiantes/listadoBeca}">Listado Ordenado por Beca</a>
+|
+<a th:href="@{/estudiantes/formOrdenar}">Ordenar Estudiantes</a>
+
+<br><br>
+
+<table>
+    <thead>
+        <tr>
+            <th th:classappend="${campoSeleccionado == 'nombre'} ? 'columna-activa'">Nombre</th>
+            <th th:classappend="${campoSeleccionado == 'primerApellido'} ? 'columna-activa'">Primer Apellido</th>
+            <th>Segundo Apellido</th>
+            <th th:classappend="${campoSeleccionado == 'genero'} ? 'columna-activa'">Género</th>
+            <th th:classappend="${campoSeleccionado == 'fechaMatriculacion'} ? 'columna-activa'">Fecha de Matriculación</th>
+            <th>Dirección</th>
+            <th th:classappend="${campoSeleccionado == 'beca'} ? 'columna-activa'">Beca</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="estudiante : ${estudiantes}">
+            <td th:text="${estudiante.nombre}"
+                th:classappend="${campoSeleccionado == 'nombre'} ? 'columna-activa'"></td>
+
+            <td th:text="${estudiante.primerApellido}"
+                th:classappend="${campoSeleccionado == 'primerApellido'} ? 'columna-activa'"></td>
+
             <td th:text="${estudiante.segundoApellido}"></td>
-            <td th:text="${estudiante.genero}" th:classappend="${campoSeleccionado == 'genero'} ? 'columna-activa'"></td>
-            <td th:text="${estudiante.fechaMatriculacion}" th:classappend="${campoSeleccionado == 'fechaMatriculacion'} ? 'columna-activa'"></td>
+
+            <td th:text="${estudiante.genero}"
+                th:classappend="${campoSeleccionado == 'genero'} ? 'columna-activa'"></td>
+
+            <td th:text="${estudiante.fechaMatriculacion}"
+                th:classappend="${campoSeleccionado == 'fechaMatriculacion'} ? 'columna-activa'"></td>
+
             <td th:text="${estudiante.direccion}"></td>
-            <td th:text="${estudiante.beca}" th:classappend="${campoSeleccionado == 'beca'} ? 'columna-activa'"></td>
-            <td><a th:href="@{/estudiantes/details/}+${estudiante.id}">Detalles</a></td>
-            <td><a th:href="@{/estudiantes/update/}+${estudiante.id}">Actualizar</a></td>
-            <td><form th:action="@{/estudiantes/delete/}+${estudiante .id}" method="get" class="d-inline"
-                     th:onclick="return confirm('¿Estás seguro de que deseas eliminar a ' + [[${estudiante.nombre}]] + ' y todos sus datos?');">
-                      <button type="submit" class="text-danger border-0 bg-transparent p-0 fw-bold">Eliminar</button>
-                </form>
+
+            <td th:text="${estudiante.beca}"
+                th:classappend="${campoSeleccionado == 'beca'} ? 'columna-activa'"></td>
+
+            <td>
+                <a th:href="@{/estudiantes/details/{id}(id=${estudiante.id})}">Detalles</a>
+                |
+                <a th:href="@{/estudiantes/update/{id}(id=${estudiante.id})}">Actualizar</a>
+                |
+                <a th:href="@{/estudiantes/delete/{id}(id=${estudiante.id})}"
+                   onclick="return confirm('¿Estás seguro de que deseas eliminar este estudiante y todos sus datos?');">
+                   Eliminar
+                </a>
             </td>
-          </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/}">Volver al Menú Principal</a>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<a th:href="@{/}">Volver al Menú Principal</a>
+
 </body>
 </html>

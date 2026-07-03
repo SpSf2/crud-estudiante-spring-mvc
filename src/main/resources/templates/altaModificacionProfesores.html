@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta / Modificación de Profesores</title>
+    <style>
+        .mensaje {
+            color: rgb(52, 172, 41);
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Alta / Modificación de Profesores</h1>
+
+<p th:if="${mensaje}" th:text="${mensaje}" class="mensaje"></p>
+<p th:if="${error}" th:text="${error}" class="error"></p>
+
+<form th:action="@{/profesores/persistir}" th:object="${profesor}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" th:field="*{nombre}">
+        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label for="primerApellido">Primer Apellido</label>
+        <input type="text" id="primerApellido" th:field="*{primerApellido}">
+        <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error"></p>
+   </div>
+
+    <div class="form-group">
+        <label for="segundoApellido">Segundo Apellido</label>
+        <input type="text" id="segundoApellido" th:field="*{segundoApellido}">
+    </div>
+
+    <div class="form-group">
+        <label for="genero">Género</label>
+        <select id="genero" th:field="*{genero}">
+            <option value="">-- Seleccione --</option>
+            <option th:each="genero : ${T(com.emprende.models.Genero).values()}"
+                    th:value="${genero}"
+                    th:text="${genero}">                    
+            </option>
+        </select>
+        <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label for="fechaAltaFacultad">Fecha de Alta en la Facultad</label>
+        <input type="date" id="fechaAltaFacultad" th:field="*{fechaAltaFacultad}">
+        <p th:if="${#fields.hasErrors('fechaAltaFacultad')}" th:errors="*{fechaAltaFacultad}" class="error"></p>
+    </div>
+
+    <div class="form-group">
+        <label for="salario">Salario</label>
+        <input type="number" step="0.01" id="salario" th:field="*{salario}">
+        <p th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" class="error"></p>
+    </div>
+
+    <div class="form-group">
+    <label for="facultades">Facultad</label>
+    <select id="facultades" th:field="*{facultad}">
+        <option value=""></option>
+        <option th:each="facultad : ${facultades}"
+                th:value="${facultad.id}"
+                th:text="${facultad.nombre}">
+        </option>
+    </select>
+        <p th:if="${#fields.hasErrors('facultad')}"
+        th:errors="*{facultad}"
+        class="error"></p>
+
+    </div>
+
+    <div class="form-group">
+        <label for="foto">Foto</label>
+        <input type="file" id="foto" name="file">
+    </div>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<br>
+<a th:href="@{/profesores/listado}">Volver al listado</a>
+<br>
+<br>
+<a th:href="@{/}">Volver al menú principal</a>
+
+</body>
+</html>

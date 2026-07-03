@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Profesores</title>
+    <style>
+        .mensaje {
+            color: rgb(52, 172, 41);
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Listado de Profesores</h1>
+
+<p th:if="${mensaje}" th:text="${mensaje}" class="mensaje"></p>
+<p th:if="${error}" th:text="${error}" class="error"></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Género</th>
+            <th>Fecha de Alta</th>
+            <th>Salario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="profesor : ${profesores}">
+            <td th:text="${profesor.id}"></td>
+            <td th:text="${profesor.nombre}"></td>
+            <td th:text="${profesor.primerApellido + ' ' + profesor.segundoApellido}"></td>
+            <td th:text="${profesor.genero}"></td>
+            <td th:text="${profesor.fechaAltaFacultad}"></td>
+            <td th:text="${profesor.salario}"></td>
+
+            <td>
+                <a th:href="@{/profesores/detalle/{id}(id=${profesor.id})}">Detalle</a>
+                |
+                <a th:href="@{/profesores/modificar/{id}(id=${profesor.id})}">Modificar</a>
+                |
+                <a th:href="@{/profesores/eliminar/{id}(id=${profesor.id})}">Eliminar</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<a th:href="@{/profesores/alta}">Nuevo Profesor</a>
+<br>
+<br>
+<a th:href="@{/}">Volver al menú principal</a>
+
+</body>
+</html>

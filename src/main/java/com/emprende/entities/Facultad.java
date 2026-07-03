@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"estudiantes"})
+@ToString(exclude = {"estudiantes", "profesores"})
 @Entity
 @Builder
 public class Facultad implements Serializable{
@@ -38,5 +38,8 @@ public class Facultad implements Serializable{
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facultad")
     private List<Estudiante> estudiantes;
+
+     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facultad")
+    private List<Profesor> profesores;
 
 }

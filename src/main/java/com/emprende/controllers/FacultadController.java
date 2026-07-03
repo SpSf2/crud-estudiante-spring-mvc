@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.emprende.entities.Facultad;
 import com.emprende.services.FacultadService;
+import com.emprende.services.ProfesorService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class FacultadController {
 
     private final FacultadService facultadService;
+    private final ProfesorService profesorService;
 
     @GetMapping("/alta")
     public String mostrarFormularioAltaFacultad(Model model) {
@@ -51,9 +53,9 @@ public class FacultadController {
     @GetMapping("/eliminar/{id}")
     public String eliminarFacultad(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
 
-        if (facultadService.facultadTieneEstudiantes(id)) {
+        if (facultadService.facultadTieneEstudiantes(id) || profesorService.facultadTieneProfesores(id)){
             redirectAttributes.addFlashAttribute("error",
-                    "No se puede eliminar la facultad porque tiene estudiantes asociados");
+                    "No se puede eliminar la facultad porque tiene estudiantes o profesores asociados");
             return "redirect:/facultades/listado";
         }
 

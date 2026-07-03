@@ -162,7 +162,13 @@ public class EstudianteController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }    
+        } else if (estudiante.getId() != 0) {
+            Estudiante estudianteBD = estudianteService.getEstudianteById(estudiante.getId());
+            if (estudianteBD != null) {
+                estudiante.setFoto(estudianteBD.getFoto());
+            }
+        }
+       
 
         LOG.info("Objeto Estudiante Recibido");
 	    LOG.info(estudiante.toString());
