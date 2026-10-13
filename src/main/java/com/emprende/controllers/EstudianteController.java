@@ -146,7 +146,7 @@ public class EstudianteController {
                 }
             }
 
-        /*Preguntar si han enviado foto del Empleado y si es asi, guardar el nombre
+        /*Preguntar si han enviado foto del Estudiante y si es asi, guardar el nombre
             de la foto en la propiedad, atributo o variable donde se guarde la foto
             y guardar el contengido de la foto como un archivo en el sistema de archivos
             (files system) del servidor*/
